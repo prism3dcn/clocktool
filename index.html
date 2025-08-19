@@ -1,18 +1,238 @@
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-  <title>极简悬浮时钟</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>极简悬浮时钟 - 抢购秒级时间管理工具</title>
+    <!-- 引入Tailwind CSS实现快速样式优化 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入Font Awesome图标增强视觉元素 -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- 自定义Tailwind配置：贴合产品“高对比度、简洁”属性 -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // 核心配色：黑底黄字（呼应产品高对比度设计）
+                        clockYellow: '#FFCC00', // 时钟数字色
+                        clockBlack: '#1A1A1A',  // 时钟背景/强调色
+                        neutral: '#F5F5F5',     // 页面背景色
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'], // 现代无衬线字体，提升可读性
+                    },
+                }
+            }
+        }
+    </script>
+    <!-- 自定义工具类：增强交互与视觉细节 -->
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .hover-lift {
+                transition: transform 0.3s ease, box-shadow 0.3s ease;
+            }
+            .hover-lift:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+            }
+            .screenshot-frame {
+                border: 8px solid #1A1A1A;
+                border-radius: 32px; /* 模拟手机圆角 */
+                box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            }
+        }
+    </style>
 </head>
-<body>
-  <p>
-    极简悬浮时钟是一款专注于抢购场景的轻量工具，核心功能简洁直接：用户启动后，时钟将以悬浮窗形式显示在手机屏幕顶层，不受其他应用遮挡。界面仅保留核心时间信息——清晰展示当前时分秒（精确到秒级），数字采用高对比度配色（如黑底黄字），确保在各类App界面上都能快速看清。
+<body class="bg-neutral font-sans text-gray-800 min-h-screen">
+    <!-- 1. 顶部导航栏：固定定位，方便用户快速返回/了解核心功能 -->
+    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm shadow-sm">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <!-- 产品Logo+名称：强化品牌识别 -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-clockBlack rounded-lg flex items-center justify-center">
+                    <i class="fa fa-clock-o text-clockYellow text-xl"></i>
+                </div>
+                <h1 class="text-xl font-bold text-clockBlack">极简悬浮时钟</h1>
+            </div>
+            <!-- 核心功能快捷入口：移动端隐藏，桌面端显示 -->
+            <nav class="hidden md:flex items-center gap-6">
+                <a href="#intro" class="text-gray-600 hover:text-clockBlack transition-colors">产品介绍</a>
+                <a href="#screenshots" class="text-gray-600 hover:text-clockBlack transition-colors">功能截图</a>
+                <a href="#feature" class="text-clockBlack font-medium bg-clockYellow/20 px-4 py-2 rounded-lg hover:bg-clockYellow/30 transition-colors">
+                    <i class="fa fa-star-o mr-1"></i>核心优势
+                </a>
+            </nav>
+            <!-- 移动端菜单按钮 -->
+            <button class="md:hidden text-clockBlack">
+                <i class="fa fa-bars text-xl"></i>
+            </button>
+        </div>
+    </header>
 
-悬浮窗可随意拖动调整位置，避免遮挡抢购按钮等关键区域；体积小巧不占用过多屏幕空间，却能让用户在浏览商品、填写信息等操作时，实时掌握倒计时动态，精准把控抢购提交时机，减少因切换应用看时间导致的延误。无多余功能干扰，启动即用，专注解决抢购场景下的“秒级时间感知”需求。
+    <!-- 2. 英雄区：突出产品核心价值，快速抓住用户注意力 -->
+    <section class="py-16 md:py-24 bg-gradient-to-b from-white to-neutral">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto text-center mb-12">
+                <h2 class="text-[clamp(1.8rem,5vw,2.8rem)] font-bold text-clockBlack mb-6 leading-tight">
+                    抢购场景必备<br/><span class="text-clockYellow">秒级精准</span>时间管理
+                </h2>
+                <p class="text-gray-600 text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+                    告别“切换应用看时间”的延误，悬浮窗实时显示，精准把控抢购提交时机
+                </p>
+                <!-- 行动按钮：引导用户尝试（此处可替换为真实下载链接） -->
+                <a href="#" class="inline-block bg-clockBlack text-clockYellow font-medium px-8 py-3 rounded-lg hover:bg-clockBlack/90 transition-colors hover-lift text-lg">
+                    <i class="fa fa-download mr-2"></i>立即体验
+                </a>
+            </div>
 
+            <!-- 模拟时钟效果：增强产品视觉联想 -->
+            <div class="max-w-xs mx-auto bg-clockBlack text-clockYellow rounded-xl px-6 py-4 shadow-lg">
+                <div class="text-3xl md:text-4xl font-mono font-bold text-center" id="liveClock">
+                    <!-- 动态时钟：JS实时更新 -->
+                </div>
+                <p class="text-center text-gray-400 text-sm mt-2">实时秒级显示（模拟效果）</p>
+            </div>
+        </div>
+    </section>
 
-  </p>
-   <div>
-      <img src="Screenshot_20250729_173213_.jpg"/>
-     <img src="Screenshot_20250729_1732207_.jpg" />
-   </div>
+    <!-- 3. 产品介绍：结构化内容，提升可读性 -->
+    <section id="intro" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto">
+                <h3 class="text-2xl font-bold text-clockBlack mb-8 text-center">产品核心功能</h3>
+                <!-- 优化段落排版：拆分长文本，用图标引导，增强阅读节奏 -->
+                <div class="space-y-6 text-gray-700 text-lg leading-relaxed">
+                    <p class="flex gap-4">
+                        <i class="fa fa-window-maximize text-clockYellow text-xl mt-1 flex-shrink-0"></i>
+                        <span>极简悬浮时钟是一款专注于抢购场景的轻量工具，核心功能简洁直接：用户启动后，时钟将以悬浮窗形式显示在手机屏幕顶层，不受其他应用遮挡。</span>
+                    </p>
+                    <p class="flex gap-4">
+                        <i class="fa fa-eye text-clockYellow text-xl mt-1 flex-shrink-0"></i>
+                        <span>界面仅保留核心时间信息——清晰展示当前时分秒（精确到秒级），数字采用高对比度配色（黑底黄字），确保在各类App界面上都能快速看清。</span>
+                    </p>
+                    <p class="flex gap-4">
+                        <i class="fa fa-arrows text-clockYellow text-xl mt-1 flex-shrink-0"></i>
+                        <span>悬浮窗可随意拖动调整位置，避免遮挡抢购按钮等关键区域；体积小巧不占用过多屏幕空间，却能让用户在浏览商品、填写信息等操作时，实时掌握倒计时动态。</span>
+                    </p>
+                    <p class="flex gap-4">
+                        <i class="fa fa-bolt text-clockYellow text-xl mt-1 flex-shrink-0"></i>
+                        <span>无多余功能干扰，启动即用，专注解决抢购场景下的“秒级时间感知”需求，减少因切换应用看时间导致的延误。</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. 功能截图：优化展示布局，增强视觉层次感 -->
+    <section id="screenshots" class="py-16 bg-neutral">
+        <div class="container mx-auto px-4">
+            <h3 class="text-2xl font-bold text-clockBlack mb-12 text-center">功能实景展示</h3>
+            
+            <!-- 截图容器：响应式布局，移动端垂直排列，桌面端水平居中 -->
+            <div class="max-w-5xl mx-auto grid md:grid-cols-2 gap-8 md:gap-12">
+                <!-- 截图1：添加边框模拟手机，hover有上浮效果 -->
+                <div class="screenshot-frame hover-lift">
+                    <img src="Screenshot_20250729_173213_.jpg" alt="极简悬浮时钟功能截图1" class="w-full h-auto rounded-24 object-cover">
+                </div>
+                <!-- 截图2：同上，保持风格统一 -->
+                <div class="screenshot-frame hover-lift">
+                    <img src="Screenshot_20250729_1732207_.jpg" alt="极简悬浮时钟功能截图2" class="w-full h-auto rounded-24 object-cover">
+                </div>
+            </div>
+            
+            <!-- 截图说明：补充截图信息，避免用户误解 -->
+            <p class="text-center text-gray-500 mt-8 max-w-2xl mx-auto">
+                左图：悬浮窗在购物App中的显示效果 | 右图：拖动调整悬浮窗位置演示
+            </p>
+        </div>
+    </section>
+
+    <!-- 5. 核心优势：提炼卖点，用卡片式设计强化记忆 -->
+    <section id="feature" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h3 class="text-2xl font-bold text-clockBlack mb-12 text-center">为什么选择极简悬浮时钟？</h3>
+            
+            <!-- 优势卡片：3列布局（移动端1列），图标+文字清晰传达 -->
+            <div class="max-w-5xl mx-auto grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- 优势1：高对比度 -->
+                <div class="bg-neutral rounded-xl p-6 hover-lift">
+                    <div class="w-12 h-12 bg-clockBlack/10 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fa fa-adjust text-clockYellow text-xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-clockBlack mb-2">高对比度显示</h4>
+                    <p class="text-gray-600">黑底黄字设计，在任何App背景下都能快速识别时间，不费眼。</p>
+                </div>
+                
+                <!-- 优势2：自由拖动 -->
+                <div class="bg-neutral rounded-xl p-6 hover-lift">
+                    <div class="w-12 h-12 bg-clockBlack/10 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fa fa-mouse-pointer text-clockYellow text-xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-clockBlack mb-2">自由拖动调整</h4>
+                    <p class="text-gray-600">随拖随放，避开抢购按钮/输入框，不遮挡关键操作区域。</p>
+                </div>
+                
+                <!-- 优势3：轻量启动 -->
+                <div class="bg-neutral rounded-xl p-6 hover-lift">
+                    <div class="w-12 h-12 bg-clockBlack/10 rounded-lg flex items-center justify-center mb-4">
+                        <i class="fa fa-rocket text-clockYellow text-xl"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-clockBlack mb-2">轻量启动即用</h4>
+                    <p class="text-gray-600">无广告、无冗余功能，启动速度快，专注抢购场景需求。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. 页脚：简洁信息，提升信任感 -->
+    <footer class="py-10 bg-clockBlack text-gray-400">
+        <div class="container mx-auto px-4">
+            <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center">
+                <!-- 品牌信息 -->
+                <div class="flex items-center gap-3 mb-6 md:mb-0">
+                    <div class="w-8 h-8 bg-clockYellow rounded-lg flex items-center justify-center">
+                        <i class="fa fa-clock-o text-clockBlack text-sm"></i>
+                    </div>
+                    <span class="text-white font-medium">极简悬浮时钟 © 2025</span>
+                </div>
+                
+                <!-- 辅助链接 -->
+                <div class="flex gap-6 text-sm">
+                    <a href="#" class="hover:text-clockYellow transition-colors">使用说明</a>
+                    <a href="#" class="hover:text-clockYellow transition-colors">隐私政策</a>
+                    <a href="#" class="hover:text-clockYellow transition-colors">联系我们</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 7. 动态时钟JS：增强页面互动性 -->
+    <script>
+        // 实时更新时钟（模拟产品秒级显示功能）
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('liveClock').textContent = `${hours}:${minutes}:${seconds}`;
+        }
+        // 初始化时钟并每秒更新
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // 平滑滚动：点击导航链接时平滑跳转到对应区域
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
