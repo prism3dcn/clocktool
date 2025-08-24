@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">悬浮时钟</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">溪流工作室:极简时钟</string>
+    <string name="nav_header_subtitle">28491599@qq.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">设置</string>
+
+
+    <string name="menu_settings">设置</string>
+    <string name="menu_about">关于</string>
+
+
+    <string name="btn_start_txt">启动悬浮</string>
+    <string name="btn_stop_text">停止悬浮</string>
+    <string name="text_qrcode_help">如对您有所帮助，可以保存微信赞赏码赞赏</string>
+    <string name="text_about">极简悬浮时钟，悬浮显时间，助抢购精准读秒。</string>
+    <string name="nav_txt_about">关于</string>
+</resources>
