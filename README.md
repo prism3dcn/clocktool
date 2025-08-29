@@ -88,7 +88,7 @@ ClockTool 是完全免费开源的工具类应用，开发和维护过程中未�
 
 如果在使用过程中遇到 Bug，或有新功能建议，欢迎通过以下方式反馈：
 1. **GitHub Issues**：在本仓库 [Issues](https://github.com/prism3dcn/clocktool/issues) 中提交详细描述（推荐）
-2. **邮件反馈**：发送邮件至 [your-email@example.com](mailto:your-email@example.com)（请替换为实际邮箱）
+2. **邮件反馈**：发送邮件至 [28491599@qq.com](mailto:28491599@qq.com)
 
 
 ## 📄 许可证
